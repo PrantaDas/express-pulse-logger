@@ -1,29 +1,27 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es2020",
         "module": "commonjs",
-        "strict": true,
-        "esModuleInterop": true,
-        "outDir": "./dist",
-        "rootDir": "./src",
+        "allowJs": false,
+        "declaration": false,
         "sourceMap": true,
-        "declaration": true,
-        "moduleResolution": "node",
-        "baseUrl": ".",
-        "paths": {
-            "@utils/*": [
-                "utils/*"
-            ],
-            "@middleware/*": [
-                "middleware/*"
-            ]
-        }
+        "rootDirs": [
+            "src",
+            "tests"
+        ],
+        "outDir": "dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "noUnusedParameters": true,
+        "skipLibCheck": true,
+        "pretty": true,
+        "lib": [
+            "ES2020"
+        ]
     },
     "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
+        "./src/**/*"
     ]
 }

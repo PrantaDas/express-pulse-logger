@@ -1,7 +1,13 @@
-import { createWriteStream } from "fs";
+import { WriteStream } from "fs";
 
-export const loggerStream = {
+interface LoggerStream {
+    logFile: string;
+    logStream?: WriteStream;
+    logFileSize: number;
+}
+
+export const loggerStream: LoggerStream = {
     logFile: '',
-    logStream: createWriteStream('', { flags: 'a' }),
     logFileSize: 0,
 };
+

@@ -2,16 +2,17 @@ import { loadavg } from "os";
 import { createReadStream, createWriteStream, existsSync, mkdirSync, readdirSync, statSync, unlinkSync, writeFileSync } from "fs";
 import { PassThrough } from "stream";
 import path from "path";
-import { NextFunction, Response, Request } from "express";
+import { Response, Request } from "express";
 import { createGzip } from "zlib";
 import { EndTime, LoggerOptions, StartTime } from "./types";
 import { loggerStream } from "./globals";
 
-export function calculateElapsedTime(_start: StartTime, end: EndTime): number {
-    return Math.round((end[0] * 1000) + (end[1] / 1000000));
-};
+export function calculateElapsedTime(start: StartTime, end: EndTime): number {
+    const elapsedNanoseconds = (end[0] - start[0]) * 1e9 + (end[1] - start[1]);
+    return Math.round(elapsedNanoseconds / 1e6);
+}
 
-export function calculateTotalBandwidth(req: Request, res: Response): number {
+export function calculateTotalBandwidth(req: Request, _res: Response): number {
     let totalBandwith = 0;
     if (req.socket.bytesRead) totalBandwith += req.socket.bytesRead;
     if (req.socket.bytesWritten) totalBandwith += req.socket.bytesWritten;
@@ -25,7 +26,7 @@ export function generateLog(req: Request, res: Response, time: number): string {
     const contentLength = req.headers["content-length"];
     const cpuUsage = loadavg()[0];
     const bandWith = calculateTotalBandwidth(req, res);
-    return `${ip} - - ${userAgent} - HTTP/${httpVersion} ${method.toUpperCase()} - ${url} - ${contentLength} - ${statusCode} - [${time}ms] - [${cpuUsage}%] - [${bandWith}Bytes]\n`;
+    return `${ip} - ${userAgent} - HTTP/${httpVersion} ${method.toUpperCase()} - ${url ? url : ''} - ${contentLength ? contentLength : 0} - ${statusCode} - (${time} ms) - (CPU USAGE ${cpuUsage} %) - (${bandWith} Bytes)`;
 };
 
 export function writeLog(log: string): void {
@@ -72,10 +73,10 @@ export function deleteOldLogsFile(durations: string): void {
             throw new Error('Invalid duration format. Use "xD" for x days or "xM" for x months.');
     }
 
-    readdirSync('../').forEach((file) => {
+    readdirSync(path.join(process.cwd(), '.log')).forEach((file) => {
         if (file.startsWith('stats-')) {
-            const fileDate = new Date(file.substring(6, 23));
-            if (fileDate < deleteDate) unlinkSync(file);
+            const fileDate = new Date(file.substring(6, 23).split('.')[0]);
+            if (fileDate < deleteDate) unlinkSync(path.join(process.cwd(), '.log', file));
         }
     });
 };
