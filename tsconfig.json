@@ -1,15 +1,17 @@
 {
     "compilerOptions": {
         "target": "es2020",
-        "module": "commonjs",
-        "allowJs": false,
-        "declaration": false,
+        "module": "NodeNext",
+        "allowJs": true,
+        "declaration": true,
         "sourceMap": true,
         "rootDirs": [
             "src",
             "tests"
         ],
         "outDir": "dist",
+        "moduleResolution": "NodeNext",
+        "emitDeclarationOnly": false,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
@@ -18,10 +20,16 @@
         "skipLibCheck": true,
         "pretty": true,
         "lib": [
-            "ES2020"
+            "ES2020",
+            "DOM"
         ]
     },
     "include": [
         "./src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        ".log"
     ]
 }

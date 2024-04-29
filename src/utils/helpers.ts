@@ -13,10 +13,7 @@ export function calculateElapsedTime(start: StartTime, end: EndTime): number {
 }
 
 export function calculateTotalBandwidth(req: Request, _res: Response): number {
-    let totalBandwith = 0;
-    if (req.socket.bytesRead) totalBandwith += req.socket.bytesRead;
-    if (req.socket.bytesWritten) totalBandwith += req.socket.bytesWritten;
-    return totalBandwith;
+    return req.socket.bytesRead + req.socket.bytesWritten;
 };
 
 export function generateLog(req: Request, res: Response, time: number): string {
@@ -40,6 +37,25 @@ export function checkLogRotation(options: LoggerOptions): void {
     if (loggerStream.logFileSize >= 10 * 1024 * 1024) {
         if (options.clearLog) rotateLogFile(options);
     }
+    // readdirSync(path.join(process.cwd(), '.log')).forEach((file) => {
+    //     if (new RegExp(/^stats-.+\.txt$/g).test(file)) {
+    //         const fileDate = new Date(file.substring(6, 23).split('.')[0]);
+    //         if (
+    //             (fileDate < new Date(new Date().getTime())) &&
+    //             new RegExp(/\.txt$/g).test(file)
+    //         ) {
+    //             const compress = createGzip();
+    //             const passThrough = new PassThrough();
+    //             const txtFile = createReadStream(path.join(process.cwd(), '.log', file));
+    //             txtFile
+    //                 .pipe(passThrough)
+    //                 .pipe(compress)
+    //                 .pipe(createWriteStream(path.join(process.cwd(), '.log', file + '.gz')));
+    //             unlinkSync(path.join(process.cwd(), '.log', file));
+    //             console.log(file)
+    //         }
+    //     }
+    // });
 };
 
 export function rotateLogFile(options: LoggerOptions) {
@@ -70,13 +86,15 @@ export function deleteOldLogsFile(durations: string): void {
             deleteDate = new Date(currentDate.getTime() - months * 30 * 24 * 60 * 60 * 1000);
             break;
         default:
-            throw new Error('Invalid duration format. Use "xD" for x days or "xM" for x months.');
+            break;
     }
 
     readdirSync(path.join(process.cwd(), '.log')).forEach((file) => {
-        if (file.startsWith('stats-')) {
+        if (file.startsWith('stats-') && file.endsWith('.gz')) {
             const fileDate = new Date(file.substring(6, 23).split('.')[0]);
-            if (fileDate < deleteDate) unlinkSync(path.join(process.cwd(), '.log', file));
+            if (fileDate < deleteDate) {
+                unlinkSync(path.join(process.cwd(), '.log', file));
+            }
         }
     });
 };
@@ -85,6 +103,7 @@ export function initializeLogStream(options: LoggerOptions): void {
     const currentDate = new Date();
     const logFolder = path.join(process.cwd(), '.log');
     const fileName = `stats-${currentDate.toISOString().slice(0, 10)}.txt`;
+    console.log(fileName);
     const logFilePath = path.join(logFolder, fileName);
     if (!existsSync(logFolder)) mkdirSync(logFolder);
     if (!existsSync(logFilePath)) writeFileSync(logFilePath, '');
