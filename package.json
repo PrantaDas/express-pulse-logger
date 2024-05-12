@@ -1,6 +1,6 @@
 {
   "name": "express-pulse-logger",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A simple logger for express.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -34,6 +34,10 @@
     "name": "Pranta Das",
     "email": "prantodas043@gmail.com",
     "url": "https://github.com/Prantadas"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PrantaDas/express-pulse-logger"
   },
   "license": "MIT",
   "devDependencies": {
