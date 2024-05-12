@@ -30,9 +30,6 @@
     "README.md",
     "LICENSE"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "author": {
     "name": "Pranta Das",
     "email": "prantodas043@gmail.com",
