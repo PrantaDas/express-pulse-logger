@@ -8,6 +8,24 @@
 - **CPU and Memory Monitoring:** Unique feature to monitor CPU usage and memory consumption, providing valuable insights into server performance.
 
 
+# Installation 
+You can install **express-insight-logger** using `npm`, `yarn`, `pnpm`.
+
+## npm
+```sh
+npm i express-pulse-logger
+```
+
+## pnpm
+```sh
+nnpm install express-pulse-logger
+```
+
+## yarn
+```sh
+yarn add express-pulse-logger
+```
+
 # Example
 ```ts
 import { statsLogger } from "express-pulse-logger";
@@ -23,3 +41,7 @@ app.get('/', (_req, res) => {
 
 app.listen(5000);
 ```
+
+
+## Note
+This is my first time publishing a package, and while I've put effort into creating something new and useful, there may be mistakes or areas for improvement. I appreciate your understanding and welcome any feedback or suggestions you may have. Thank you for giving **express-insight-logger** a try!

@@ -1,5 +1,5 @@
 {
-  "name": "stats-logger",
+  "name": "express-pulse-logger",
   "version": "1.0.1",
   "description": "A simple logger for express.js",
   "main": "./dist/index.js",
