@@ -1,6 +1,6 @@
 {
   "name": "express-pulse-logger",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "A simple logger for express.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -30,6 +30,9 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "author": {
     "name": "Pranta Das",
     "email": "prantodas043@gmail.com",
