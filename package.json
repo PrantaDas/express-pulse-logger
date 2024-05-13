@@ -1,6 +1,6 @@
 {
   "name": "express-pulse-logger",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A simple logger for express.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
