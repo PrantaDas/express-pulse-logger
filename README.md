@@ -9,7 +9,7 @@
 
 
 # Installation 
-You can install **express-insight-logger** using `npm`, `yarn`, `pnpm`.
+You can install **express-pulse-logger** using `npm`, `yarn`, `pnpm`.
 
 ## npm
 ```sh
