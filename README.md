@@ -44,4 +44,4 @@ app.listen(5000);
 
 
 ## Note
-This is my first time publishing a package, and while I've put effort into creating something new and useful, there may be mistakes or areas for improvement. I appreciate your understanding and welcome any feedback or suggestions you may have. Thank you for giving **express-insight-logger** a try!
+This is my first time publishing a package, and while I've put effort into creating something new and useful, there may be mistakes or areas for improvement. I appreciate your understanding and welcome any feedback or suggestions you may have. Thank you for giving **express-pulse-logger** a try!
