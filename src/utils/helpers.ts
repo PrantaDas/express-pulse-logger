@@ -88,6 +88,9 @@ export function deleteOldLogsFile(durations: string): void {
 };
 
 export function initializeLogStream(options: LoggerOptions): void {
+    if (options.clearLog && !(new RegExp(/^\d[MD]$/g)).test(options.clearLog)) {
+        throw new Error('Invalid duration format. Use "xD" for x days or "xM" for x months.');
+    }
     const currentDate = new Date();
     const logFolder = path.join(process.cwd(), '.log');
     const fileName = `stats-${currentDate.toISOString().slice(0, 10)}.txt`;
