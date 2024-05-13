@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { LoggerOptions } from "../utils/types";
 import { calculateElapsedTime, checkLogRotation, generateLog, initializeLogStream, writeLog } from "../utils/helpers";
 
-export function statsLogger(options: LoggerOptions) {
+export function statsLogger(options?: LoggerOptions) {
     return (req: Request, res: Response, next: NextFunction) => {
-        initializeLogStream(options);
+        if (options) initializeLogStream(options);
         const startTime = process.hrtime();
 
         res.on("finish", () => {
