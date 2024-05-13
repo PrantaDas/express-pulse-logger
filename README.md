@@ -18,7 +18,7 @@ npm i express-pulse-logger
 
 ## pnpm
 ```sh
-nnpm install express-pulse-logger
+pnpm install express-pulse-logger
 ```
 
 ## yarn
